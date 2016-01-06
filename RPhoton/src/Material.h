@@ -8,11 +8,12 @@ class Material
 {
 public:
 	Material();
+	Material(std::wstring texturepath);
 	~Material();
 
 	void				SetColor(const Color &c);
 	void				SetColor(float r, float g, float b);
-	Color				GetColor();
+	Color				SurfaceColor(const Vector2 &texCoord);
 
 	Color				color;
 	Texture*			texture;

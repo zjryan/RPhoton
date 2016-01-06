@@ -37,7 +37,7 @@ public:
 		Cubic
 	};
 
-	Texture(std::wstring filename, FilterType filtertype);
+	Texture(std::wstring filename, FilterType filtertype = None);
 	~Texture();
 
 	Color				Sample(const TextureCoord &texcoord);
