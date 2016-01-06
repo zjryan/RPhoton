@@ -63,3 +63,12 @@ Normal Sphere::GetNormal(const Ray &ray, float &t) const
 	n.Normalize();
 	return Normal(n);
 }
+
+Vector2 Sphere::GetTexCoord(const Ray &ray, float &t) const
+{
+	Point p(ray.o + ray.d * t);
+	float theta = acos((p.z - center.z) / radius);
+	float phy = atan2f(p.y - center.y, p.x - center.x);
+
+	return Vector2(phy / _TWO_PI, (_PI - theta) / _PI);
+}

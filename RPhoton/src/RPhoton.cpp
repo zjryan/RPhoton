@@ -94,12 +94,15 @@ void RPhoton::BuildScene()
 
 	// add scene objects & lights
 	// objects
-/*
+
 	Sphere* s1 = new Sphere();
+	Material* m1 = new Material(L"Texture/Earth.bmp");
 	s1->SetCenter(0.0f, 0.0f, 0.0f);
-	s1->SetRadius(100.0f);
-	s1->material->SetColor(Colors::Red);
+	s1->SetRadius(400.0f);
+	s1->material = m1;
 	scene->Add(s1);
+	
+	/*
 
 	Sphere* s2 = new Sphere();
 	s2->SetCenter(250.0f, 0.0f, -200.0f);
@@ -115,10 +118,11 @@ void RPhoton::BuildScene()
 	scene->Add(t1);*/
 
 
+/*
 	Point p1(0.0f, 00.0f, 0.0f);
 	Cube *c1 = new Cube(p1, 350.0f);
 	c1->material->SetColor(Colors::Red);
-	scene->Add(c1);
+	scene->Add(c1);*/
 
 
 	// lights

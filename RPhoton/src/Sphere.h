@@ -17,6 +17,7 @@ public:
 
 	bool				Intersect(const Ray &ray, float &t) const override;
 	Normal				GetNormal(const Ray &ray, float &t) const override;
+	Vector2				GetTexCoord(const Ray &ray, float &t) const override;
 
 private:
 	float				radius;

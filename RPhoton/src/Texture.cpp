@@ -24,7 +24,8 @@ Color Texture::Sample(const TextureCoord &texcoord)
 	int ix = (static_cast<int>(x) % texWidth + texWidth) % texWidth;
 	int iy = (static_cast<int>(y) % texHeight + texHeight) % texHeight;
 
-/*
+	Color retColor(colors[ix + iy * texWidth]);
+
 	switch(filterType)
 	{
 	case Linear:
@@ -33,9 +34,10 @@ Color Texture::Sample(const TextureCoord &texcoord)
 	case Cubic:
 		//..
 		break;
-	default:*/
-		return colors[ix + iy * texWidth];
-	//}
+	default:
+		break;
+	}
+	return retColor;
 }
 
 void Texture::Load(std::wstring filename)
