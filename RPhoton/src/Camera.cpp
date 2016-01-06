@@ -42,7 +42,7 @@ Ray Camera::GenerateRay(int x, int y, int bufferWidth, int bufferHeight, int scr
 
 	//compute pixel position in viewplane
 	Point ori(eyePosition);
-	Vector dir = u * X + v * Y - w * 400.0f;
+	Vector dir = u * X + v * Y - w * 600.0f;
 	dir.Normalize();
 
 	return Ray(ori, dir);

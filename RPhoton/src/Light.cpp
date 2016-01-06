@@ -1,7 +1,7 @@
 #include "Light.h"
 
 Light::Light()
-	:	k(0.2),
+	:	k(0.6),
 		color()
 {
 }
