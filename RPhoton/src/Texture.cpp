@@ -2,8 +2,6 @@
 #include "Utilities.h"
 #include "../GraphicLib/Color.h"
 
-#include <iostream>
-using namespace std;
 
 using namespace WinGDI;
 
@@ -57,7 +55,6 @@ void Texture::Load(std::wstring filename)
 			colors[index].r = static_cast<float>(pixels[index * 3 + 2]) / 255.0f;
 			colors[index].g = static_cast<float>(pixels[index * 3 + 1]) / 255.0f;
 			colors[index].b = static_cast<float>(pixels[index * 3 + 0]) / 255.0f;
-			//cout << colors[index].r << " " << colors[index].g << " " << colors[index].b << endl;
 		}
 	}
 }
