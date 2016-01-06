@@ -3,24 +3,24 @@ RPhoton is a ray tracing renderer and tends to be parallelized with DirectXCompu
 
 Features
 
-	， Written in C++/WinAPI
+	1. Written in C++/WinAPI
 
-	， Basic Geometry
+	2. Basic Geometry
 
-	， Texture Mapping
+	3. Texture Mapping
 
-	， SkyBox
+	4. SkyBox
 
 
 To Do List
 
-	， Anti-aliasing
+	1. Anti-aliasing
 
-	， Acceleration Structure
+	2. Acceleration Structure
 
-	， Shadowing
+	3. Shadowing
 
-	， Global Illumination
+	4. Global Illumination
 	
-	， GPGPU Acceleration With DirectXCompute
+	5. GPGPU Acceleration With DirectXCompute
 
