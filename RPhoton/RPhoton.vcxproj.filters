@@ -22,9 +22,6 @@
     <Filter Include="GraphicLib">
       <UniqueIdentifier>{cfde644b-fa79-4405-a919-33b0859db9e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Parser">
-      <UniqueIdentifier>{c9005bd6-70ea-44d5-be68-2bc5ad8538ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Simulator\ViewWindow">
       <UniqueIdentifier>{7906cf38-bbf7-4530-92ab-84cdf95503a5}</UniqueIdentifier>
     </Filter>
@@ -42,9 +39,6 @@
     </Filter>
     <Filter Include="Geometry\inc">
       <UniqueIdentifier>{4daf1180-a4be-4867-bfec-6da6a75c0f3d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Parser\inc">
-      <UniqueIdentifier>{8a1072e4-7c52-45dc-95ff-a225a3d10a56}</UniqueIdentifier>
     </Filter>
     <Filter Include="Simulator\WinGDI">
       <UniqueIdentifier>{badaf33e-3199-43b5-8c5f-48870a4c52ea}</UniqueIdentifier>
@@ -117,9 +111,6 @@
     <ClInclude Include="GraphicLib\Ray.h">
       <Filter>GraphicLib\inc</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicLib\Vector.h">
-      <Filter>GraphicLib\inc</Filter>
-    </ClInclude>
     <ClInclude Include="src\Geometry.h">
       <Filter>Geometry\inc</Filter>
     </ClInclude>
@@ -132,12 +123,6 @@
     <ClInclude Include="src\Triangle.h">
       <Filter>Geometry\inc</Filter>
     </ClInclude>
-    <ClInclude Include="Parser\MeshLoader.h">
-      <Filter>Parser\inc</Filter>
-    </ClInclude>
-    <ClInclude Include="Parser\Parser.h">
-      <Filter>Parser\inc</Filter>
-    </ClInclude>
     <ClInclude Include="src\Cube.h">
       <Filter>Geometry\inc</Filter>
     </ClInclude>
@@ -149,6 +134,15 @@
     </ClInclude>
     <ClInclude Include="src\ShadingInfo.h">
       <Filter>Scene\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicLib\Vector3.h">
+      <Filter>GraphicLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicLib\Vector2.h">
+      <Filter>GraphicLib\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicLib\Vertex.h">
+      <Filter>GraphicLib\inc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +171,6 @@
       <Filter>GraphicLib</Filter>
     </ClCompile>
     <ClCompile Include="GraphicLib\Point.cpp">
-      <Filter>GraphicLib</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicLib\Vector.cpp">
       <Filter>GraphicLib</Filter>
     </ClCompile>
     <ClCompile Include="src\Light.cpp">
@@ -212,9 +203,6 @@
     <ClCompile Include="src\Simulator.cpp">
       <Filter>Simulator</Filter>
     </ClCompile>
-    <ClCompile Include="Parser\MeshLoader.cpp">
-      <Filter>Parser</Filter>
-    </ClCompile>
     <ClCompile Include="src\Cube.cpp">
       <Filter>Geometry</Filter>
     </ClCompile>
@@ -230,5 +218,13 @@
     <ClCompile Include="src\ShadingInfo.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicLib\Vector3.cpp">
+      <Filter>GraphicLib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Filter>resources</Filter>
+    </None>
   </ItemGroup>
 </Project>

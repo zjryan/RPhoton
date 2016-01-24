@@ -124,9 +124,9 @@
     <ClInclude Include="GraphicLib\Normal.h" />
     <ClInclude Include="GraphicLib\Point.h" />
     <ClInclude Include="GraphicLib\Ray.h" />
-    <ClInclude Include="GraphicLib\Vector.h" />
-    <ClInclude Include="Parser\MeshLoader.h" />
-    <ClInclude Include="Parser\Parser.h" />
+    <ClInclude Include="GraphicLib\Vector2.h" />
+    <ClInclude Include="GraphicLib\Vector3.h" />
+    <ClInclude Include="GraphicLib\Vertex.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Cube.h" />
     <ClInclude Include="src\Geometry.h" />
@@ -152,8 +152,7 @@
     <ClCompile Include="GraphicLib\Color.cpp" />
     <ClCompile Include="GraphicLib\Normal.cpp" />
     <ClCompile Include="GraphicLib\Point.cpp" />
-    <ClCompile Include="GraphicLib\Vector.cpp" />
-    <ClCompile Include="Parser\MeshLoader.cpp" />
+    <ClCompile Include="GraphicLib\Vector3.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Cube.cpp" />
     <ClCompile Include="src\Geometry.cpp" />
@@ -175,6 +174,9 @@
     <ClCompile Include="src\WinViewer.cpp" />
     <ClCompile Include="WinGDI\WinGDI.cpp" />
     <ClCompile Include="WinMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
