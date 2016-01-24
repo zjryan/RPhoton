@@ -6,7 +6,7 @@
 class RPhotonEngine
 {
 public:
-	static void				InitRPEngine(HINSTANCE hinstance, std::wstring title);
+	static void				initRPEngine(HINSTANCE hinstance, std::wstring title);
 	static RPhoton*			RPEngine();
 
 protected:
@@ -17,3 +17,4 @@ private:
 };
 
 #endif
+ 

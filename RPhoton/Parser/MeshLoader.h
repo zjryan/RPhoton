@@ -6,13 +6,6 @@
 #include "../GraphicLib/Normal.h"
 #include "../src/Texture.h"
 
-struct Vertex
-{
-	Point				position;
-	Normal				normal;
-	Vector2				texCoord;
-};
-
 class MeshLoader : public Parser
 {
 public:

@@ -8,15 +8,15 @@ Simulator::Simulator(HINSTANCE hinstance)
 
 Simulator::~Simulator()
 {
-	Memory::SafeDelete(winViewer);
+	Memory::safeDelete(winViewer);
 }
 
-WinViewer* Simulator::GetViewer() const
+WinViewer* Simulator::viewer() const
 {
 	return winViewer;
 }
 
-bool Simulator::InitViewer(std::wstring title)
+bool Simulator::viewerInitialized(std::wstring title)
 {
 	winViewer = new WinViewer(hInstance, screenWidth, screenHeight, title);
 	if (!winViewer->Init())

@@ -2,7 +2,7 @@
 #define ZJR_POINTLIGHT_
 
 #include "Light.h"
-#include "../GraphicLib/Vector.h"
+#include "../GraphicLib/Vector3.h"
 #include "../GraphicLib/Point.h"
 
 class PointLight : public Light
@@ -15,11 +15,11 @@ public:
 	PointLight(const PointLight &pl);
 	~PointLight();
 
-	void				SetPosition(float x, float y, float z);
-	Color				I(const Point& hitPoint, const Normal &hitNormal) override;
-	float				Distance(const Point &p);
-	Vector				PointToLight(const Point &p);
-	Vector				LightToPoint(const Point &p);
+	void				setPosition(float x, float y, float z);
+	Color				intensity(const Point& hitPoint, const Normal &hitNormal) override;
+	float				distance(const Point &p);
+	Vector3				pointToLight(const Point &p);
+	Vector3				lightToPoint(const Point &p);
 };
 
 #endif

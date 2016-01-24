@@ -12,10 +12,10 @@ struct Matrix4x4
 				float t20, float t21, float t22, float t23,
 				float t30, float t31, float t32, float t33);
 
-	Matrix4x4			Transpose() const;
-	Matrix4x4			Inverse() const;
-	Matrix4x4			Mul(const Matrix4x4 &mat);
-	float				Determinant() const;
+	Matrix4x4			transpose() const;
+	Matrix4x4			inverse() const;
+	Matrix4x4			mul(const Matrix4x4 &mat);
+	float				determinant() const;
 
 	bool				operator==(const Matrix4x4 &m) const;
 	bool				operator!=(const Matrix4x4 &m) const;
@@ -61,7 +61,7 @@ inline Matrix4x4::Matrix4x4(float t00, float t01, float t02, float t03,
 	m[3][0] = t30; m[3][1] = t31; m[3][2] = t32; m[3][3] = t33;
 }
 
-inline Matrix4x4 Matrix4x4::Transpose() const
+inline Matrix4x4 Matrix4x4::transpose() const
 {
 	return Matrix4x4(m[0][0], m[1][0], m[2][0], m[3][0],
 						m[0][1], m[1][1], m[2][1], m[3][1],
@@ -70,7 +70,7 @@ inline Matrix4x4 Matrix4x4::Transpose() const
 }
 
 
-inline Matrix4x4 Matrix4x4::Inverse() const
+inline Matrix4x4 Matrix4x4::inverse() const
 {
 	/*
 	| a b c 0 |
@@ -80,7 +80,7 @@ inline Matrix4x4 Matrix4x4::Inverse() const
 	*/
 
 	Matrix4x4 r;
-	double fDetInv = 1.0 / Determinant();
+	double fDetInv = 1.0 / determinant();
 
 	r.m[0][0] =  fDetInv * (m[1][1] * m[2][2] - m[1][2] * m[2][1]);
 	r.m[0][1] = -fDetInv * (m[0][1] * m[2][2] - m[0][2] * m[2][1]);
@@ -105,7 +105,7 @@ inline Matrix4x4 Matrix4x4::Inverse() const
 	return r;
 }
 
-inline Matrix4x4 Matrix4x4::Mul(const Matrix4x4 &mat)
+inline Matrix4x4 Matrix4x4::mul(const Matrix4x4 &mat)
 {
 	Matrix4x4 mr;
 	for (int r = 0; r < 4; ++r)
@@ -122,7 +122,7 @@ inline Matrix4x4 Matrix4x4::Mul(const Matrix4x4 &mat)
 	return mr;
 }
 
-inline float Matrix4x4::Determinant() const
+inline float Matrix4x4::determinant() const
 {
 	return m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) -
 			m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) +

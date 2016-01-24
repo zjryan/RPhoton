@@ -5,7 +5,7 @@
 #include "Triangle.h"
 #include "../Parser/MeshLoader.h"
 
-class Mesh
+class Mesh : public Geometry
 {
 public:
 	typedef std::vector<Triangle>	TriangleList;
@@ -14,8 +14,11 @@ public:
 	~Mesh();
 
 private:
+	void							importMesh(std::string meshPath);
+
+private:
 	MeshLoader::VertexArray			vertexbuffer;
-	TriangleList					triangle;
+	TriangleList					triangles;
 
 };
 

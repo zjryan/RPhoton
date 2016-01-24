@@ -9,15 +9,15 @@ public:
 	Camera();
 	virtual ~Camera();
 
-	void							Update();
-	void							Update(const Point &eye, const Point &lookAt);
-	Ray								GenerateRay(int x, int y, int bufferWidth, int bufferheight, int screenWidth, int screenHeight);
+	void							update();
+	void							update(const Point &eye, const Point &lookAt);
+	Ray								GeneratedRay(int x, int y, int bufferWidth, int bufferheight, int screenWidth, int screenHeight);
 
 private:
 	Point							eyePosition;
 	Point							lookAtPosition;
-	Vector							up;
-	Vector							u, v, w;
+	Vector3							up;
+	Vector3							u, v, w;
 	float							eyeDistance;
 };
 

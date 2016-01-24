@@ -17,9 +17,9 @@ public:
 	Cube(const Cube &c);
 	~Cube();
 
-	Vector2			GetTexCoord(const Ray &ray, float &t) const override;
-	bool			Intersect(const Ray &ray, float &t) const override;
-	virtual Normal	GetNormal(const Ray &ray, float &t) const override;
+	Vector2			texCoord(const Ray &ray, float &t) const override;
+	bool			intersected(const Ray &ray, float &t) const override;
+	virtual Normal	normal(const Ray &ray, float &t) const override;
 
 protected:
 	enum Face
@@ -27,7 +27,7 @@ protected:
 		px, nx, py, ny, pz, nz
 	};
 
-	Face			IntersectFace(const Ray &ray, float t) const;
+	Face			intersectFace(const Ray &ray, float t) const;
 
 protected:
 	Point			Bl;
@@ -41,10 +41,10 @@ public:
 	SkyBox(const Point &p1, const Point &p2);
 	~SkyBox();
 
-	Normal			GetNormal(const Ray &ray, float &t) const override;
-	Color			GetSkyColor(const Ray &ray) const;
-	Texture*		GetFaceTexture(const Ray &ray, float t) const;
-	void			InitializeSky();
+	Normal			normal(const Ray &ray, float &t) const override;
+	Color			skyColor(const Ray &ray) const;
+	Texture*		faceTexture(const Ray &ray, float t) const;
+	void			initializeSky();
 
 private:
 	Texture			*px, *nx, *py, *ny, *pz, *nz;

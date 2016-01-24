@@ -19,7 +19,7 @@ RPhoton::RPhoton(HINSTANCE hinstance, std::wstring title)
 
 RPhoton::~RPhoton()
 {
-	Memory::SafeDelete(renderer);
+	Memory::safeDelete(renderer);
 }
 
 bool RPhoton::Init()
@@ -70,7 +70,7 @@ bool RPhoton::ImportSysConfig(std::wstring)
 
 bool RPhoton::CreateMainWindow(std::wstring windowName)
 {
-	return InitViewer(windowName);
+	return viewerInitialized(windowName);
 }
 
 void RPhoton::BuildImageBuffer()
@@ -88,36 +88,36 @@ void RPhoton::BuildScene()
 
 	// create environment light
 	Light* environmentLight = new Light();
-	environmentLight->SetIntensity(0.3f);
-	environmentLight->SetColor(Colors::White);
+	environmentLight->setIntensity(0.3f);
+	environmentLight->setColor(Colors::White);
 	scene->environmentLight = environmentLight;
 
 	// add scene objects & lights
 	// objects
 	Sphere* s1 = new Sphere();
 	Material* m1 = new Material(L"Texture/Earth.bmp");
-	s1->SetCenter(0.0f, 0.0f, 0.0f);
-	s1->SetRadius(270.0f);
+	s1->setCenter(0.0f, 0.0f, 0.0f);
+	s1->setRadius(270.0f);
 	s1->material = m1;
-	scene->Add(s1);
+	scene->add(s1);
 	
 	Sphere* s2 = new Sphere();
-	s2->SetCenter(550.0f, 300.0f, -200.0f);
-	s2->SetRadius(150.0f);
+	s2->setCenter(550.0f, 300.0f, -200.0f);
+	s2->setRadius(150.0f);
 	s2->material->SetColor(Colors::Red);
-	scene->Add(s2);
+	scene->add(s2);
 
 	Point p1(-550.0f, 300.0f, -200.0f);
 	Cube *c1 = new Cube(p1, 250.0f);
 	c1->material->SetColor(Colors::Green);
-	scene->Add(c1);
+	scene->add(c1);
 
 	// lights
 	PointLight* l1 = new PointLight();
-	l1->SetPosition(250.0f, -500.0f, 0.0f);
-	l1->SetIntensity(0.4f);
-	l1->SetColor(Colors::White);
-	scene->Add(l1);
+	l1->setPosition(250.0f, -500.0f, 0.0f);
+	l1->setIntensity(0.4f);
+	l1->setColor(Colors::White);
+	scene->add(l1);
 
 	// create renderer
 	Renderer* rd = new Renderer(scene, camera, bufferWidth, bufferHeight);
@@ -126,7 +126,7 @@ void RPhoton::BuildScene()
 
 void RPhoton::RenderScene(Scene* scene)
 {
-	renderer->TraceRay(bufferWidth, bufferHeight, screenWidth, screenHeight);
+	renderer->traceRay(bufferWidth, bufferHeight, screenWidth, screenHeight);
 }
 
 void RPhoton::PresentImage()

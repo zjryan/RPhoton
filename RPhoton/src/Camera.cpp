@@ -6,32 +6,32 @@ Camera::Camera()
 		up(0.0f, 0.0f, 1.0f),
 		eyeDistance(500.0f)
 {
-	Update();
+	update();
 }
 
 Camera::~Camera()
 {
 }
 
-inline void Camera::Update()
+inline void Camera::update()
 {
 	w = eyePosition - lookAtPosition;
-	eyeDistance = w.Length();
-	w.Normalize();
-	u = up.Cross(w);
-	u.Normalize();
-	v = w.Cross(u);
-	v.Normalize();
+	eyeDistance = w.length();
+	w.normalize();
+	u = up.cross(w);
+	u.normalize();
+	v = w.cross(u);
+	v.normalize();
 }
 
-inline void Camera::Update(const Point& eye, const Point& lookAt)
+inline void Camera::update(const Point& eye, const Point& lookAt)
 {
 	eyePosition = eye;
 	lookAtPosition = lookAt;
-	Update();
+	update();
 }
 
-Ray Camera::GenerateRay(int x, int y, int bufferWidth, int bufferHeight, int screenWidth, int screenHeight)
+Ray Camera::GeneratedRay(int x, int y, int bufferWidth, int bufferHeight, int screenWidth, int screenHeight)
 {
 	//compute pixel size
 	float widthRatio = static_cast<float>(screenWidth) / bufferWidth;
@@ -42,8 +42,8 @@ Ray Camera::GenerateRay(int x, int y, int bufferWidth, int bufferHeight, int scr
 
 	//compute pixel position in viewplane
 	Point ori(eyePosition);
-	Vector dir = u * X + v * Y - w * 600.0f;
-	dir.Normalize();
+	Vector3 dir = u * X + v * Y - w * 600.0f;
+	dir.normalize();
 
 	return Ray(ori, dir);
 }

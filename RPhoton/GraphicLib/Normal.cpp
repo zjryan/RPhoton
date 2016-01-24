@@ -1,5 +1,5 @@
 #include "Normal.h"
-#include "./Vector.h"
+#include "./Vector3.h"
 
 
 Normal::Normal()
@@ -23,7 +23,7 @@ Normal::Normal(float x_, float y_, float z_)
 {
 }
 
-Normal::Normal(const Vector &v)
+Normal::Normal(const Vector3 &v)
 	:	x(v.x),
 		y(v.y),
 		z(v.z)
@@ -34,12 +34,12 @@ Normal::~Normal()
 {
 }
 
-float Normal::Dot(const Vector &v) const
+float Normal::dot(const Vector3 &v) const
 {
 	return x * v.x + y * v.y + z * v.z;
 }
 
-float Normal::AbsDot(const Vector &v) const
+float Normal::absDot(const Vector3 &v) const
 {
-	return fabsf(Dot(v));
+	return fabsf(dot(v));
 }

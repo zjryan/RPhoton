@@ -22,34 +22,34 @@ PointLight::~PointLight()
 {
 }
 
-void PointLight::SetPosition(float x, float y, float z)
+void PointLight::setPosition(float x, float y, float z)
 {
 	position = Point(x, y, z);
 }
 
-Color PointLight::I(const Point& hitPoint, const Normal &hitNormal)
+Color PointLight::intensity(const Point& hitPoint, const Normal &hitNormal)
 {
-	Vector l = PointToLight(hitPoint);
-	return Light::I(hitPoint, hitNormal) * l.Dot(hitNormal);
+	Vector3 l = pointToLight(hitPoint);
+	return Light::intensity(hitPoint, hitNormal) * l.dot(hitNormal);
 }
 
-float PointLight::Distance(const Point& p)
+float PointLight::distance(const Point& p)
 {
-	Vector dir = position - p;
-	return dir.Length();
+	Vector3 dir = position - p;
+	return dir.length();
 }
 
-Vector PointLight::LightToPoint(const Point& p)
+Vector3 PointLight::lightToPoint(const Point& p)
 {
-	Vector dir = p - position;
-	dir.Normalize();
+	Vector3 dir = p - position;
+	dir.normalize();
 	return dir;
 }
 
-Vector PointLight::PointToLight(const Point& p)
+Vector3 PointLight::pointToLight(const Point& p)
 {
-	Vector dir = position - p;
-	dir.Normalize();
+	Vector3 dir = position - p;
+	dir.normalize();
 	return dir;
 }
 

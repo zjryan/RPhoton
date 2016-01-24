@@ -2,29 +2,9 @@
 #define ZJR_TEXTURE_
 
 #include "../WinGDI/WinGDI.h"
+#include "../GraphicLib/Vector2.h"
+
 class Color;
-
-struct Vector2
-{
-	float x;
-	float y;
-
-	Vector2() {}
-	Vector2(float x_, float y_) : x(x_), y(y_) {}
-	Vector2& operator=(const Vector2 &rhs);
-};
-
-inline Vector2& Vector2::operator=(const Vector2 &rhs)
-{
-	if(this == &rhs)
-	{
-		return *this;
-	}
-	
-	x = rhs.x;
-	y = rhs.y;
-	return *this;
-}
 
 class Texture
 {

@@ -4,7 +4,7 @@
 namespace Memory
 {
 	template<typename T>
-	inline void SafeDelete(T *t)
+	inline void safeDelete(T *t)
 	{
 		if(t != nullptr)
 		{
@@ -14,7 +14,7 @@ namespace Memory
 	}
 
 	template<typename T>
-	inline void SafeDeleteArray(T *t)
+	inline void safeDeleteArray(T *t)
 	{
 		if(t != nullptr)
 		{
@@ -24,7 +24,7 @@ namespace Memory
 	}
 
 	template<typename T>
-	inline void SafeRelease(T *t)
+	inline void safeRelease(T *t)
 	{
 		if(t != nullptr)
 		{

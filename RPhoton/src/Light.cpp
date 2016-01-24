@@ -10,12 +10,12 @@ Light::~Light()
 {
 }
 
-void Light::SetIntensity(float i)
+void Light::setIntensity(float i)
 {
 	k = i;
 }
 
-void Light::SetColor(const Color& c)
+void Light::setColor(const Color& c)
 {
 	color = c;
 }
@@ -26,7 +26,7 @@ Light::Light(const Light& l)
 {
 }
 
-Color Light::I(const Point& hitPoint, const Normal &hitNormal)
+Color Light::intensity(const Point& hitPoint, const Normal &hitNormal)
 {
 	return color * k;
 }

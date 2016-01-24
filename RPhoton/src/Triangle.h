@@ -2,26 +2,23 @@
 #define ZJR_TRIANGLE_
 
 #include "Geometry.h"
-#include "../GraphicLib/Point.h"
-#include "../GraphicLib/Normal.h"
+#include "../GraphicLib/Vertex.h"
 
 class Triangle : public Geometry
 {
 public:
-	Triangle(const Point &a, const Point &b, const Point &c);
-	Triangle(const Point &a, const Point &b, const Point &c, const Normal &n);
+	Triangle(const Vertex &a, const Vertex &b, const Vertex &c);
 	Triangle(const Triangle &t);
 	~Triangle();
 
-	float				Area() const;
-	bool				Intersect(const Ray &ray, float &t) const override;
-	Normal				GetNormal(const Ray &ray, float &t) const override;
+	float				area() const;
+	bool				intersected(const Ray &ray, float &t) const override;
+	Normal				normal(const Ray &ray, float &t) const override;
 
 private:
-	Point				a;
-	Point				b;
-	Point				c;
-	Normal				n;
+	Vertex				a;
+	Vertex				b;
+	Vertex				c;
 };
 
 #endif

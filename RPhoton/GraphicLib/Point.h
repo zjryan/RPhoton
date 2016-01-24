@@ -1,7 +1,7 @@
 #ifndef ZJR_POINT_
 #define ZJR_POINT_
 
-#include "./Vector.h"
+#include "./Vector3.h"
 
 class Point
 {
@@ -16,9 +16,9 @@ public:
 	~Point();
 
 	Point				operator+(const Point &p) const;
-	Point				operator+(const Vector &v) const;
+	Point				operator+(const Vector3 &v) const;
 	Point				operator+(float f) const;
-	Vector				operator-(const Point &p) const;
+	Vector3				operator-(const Point &p) const;
 	Point				operator-(float f) const;
 	Point				operator-() const;
 	Point				operator/(float f) const;
@@ -38,7 +38,7 @@ inline Point Point::operator+(const Point &p) const
 	return Point(x + p.x, y + p.y, z + p.z);
 }
 
-inline Point Point::operator+(const Vector &v) const
+inline Point Point::operator+(const Vector3 &v) const
 {
 	return Point(x + v.x, y + v.y, z + v.z);
 }
@@ -48,9 +48,9 @@ inline Point Point::operator+(float f) const
 	return Point(x + f, y + f, z + f);
 }
 
-inline Vector Point::operator-(const Point &p) const
+inline Vector3 Point::operator-(const Point &p) const
 {
-	return Vector(x - p.x, y - p.y, z - p.z);
+	return Vector3(x - p.x, y - p.y, z - p.z);
 }
 
 inline Point Point::operator-() const
@@ -70,12 +70,12 @@ inline Point Point::operator/(float f) const
 
 inline float Point::Distance(const Point &p) const
 {
-	return (*this - p).Length();
+	return (*this - p).length();
 }
 
 inline float Point::DistanceSquared(const Point &p) const
 {
-	return (*this - p).LengthSquared();
+	return (*this - p).lengthSquared();
 }
 
 inline float Point::operator[](int i) const

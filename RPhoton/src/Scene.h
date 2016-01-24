@@ -22,9 +22,9 @@ public:
 	Scene(const Scene &s) = delete;
 	~Scene();
 
-	Color							Shading(const Ray &ray);
-	void							Add(Geometry *geometry);
-	void							Add(Light *light);
+	Color							Shaded(const Ray &ray);
+	void							add(Geometry *geometry);
+	void							add(Light *light);
 
 private:
 	void							deleteGeometries();

@@ -23,22 +23,22 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-	Memory::SafeDelete(environmentLight);
-	Memory::SafeDelete(skyBox);
+	Memory::safeDelete(environmentLight);
+	Memory::safeDelete(skyBox);
 	deleteGeometries();
 	deleteLights();
 }
 
-Color Scene::Shading(const Ray &ray)
+Color Scene::Shaded(const Ray &ray)
 {
-	Color backgroundColor = skyBox->GetSkyColor(ray);
+	Color backgroundColor = skyBox->skyColor(ray);
 	ShadingInfo interFinal;
 
 	auto geoSize = geometries.size();
 	for (int i = 0; i < geoSize; i++)
 	{
 		ShadingInfo idata;
-		if (geometries[i]->Intersect(ray, idata.t))
+		if (geometries[i]->intersected(ray, idata.t))
 		{
 			interFinal.isIntersected = true;
 			if (idata.t < interFinal.t)
@@ -51,18 +51,18 @@ Color Scene::Shading(const Ray &ray)
 
 	if (interFinal.isIntersected)
 	{
-		interFinal.UpdateShadingInfo(ray);
+		interFinal.updateShadingInfo(ray);
 		auto hitPoint = interFinal.hitPoint;
 		auto interGeo = interFinal.hitGeo;
 		auto hitNormal = interFinal.hitNormal;
 		auto TexCoord = interFinal.texCoord;
 
 		auto lightSize = lights.size();
-		auto retColor = interGeo->material->SurfaceColor(TexCoord) * environmentLight->I(hitPoint, hitNormal);
+		auto retColor = interGeo->material->SurfaceColor(TexCoord) * environmentLight->intensity(hitPoint, hitNormal);
 		
 		for (int i = 0; i < lightSize; i++)
 		{
-			retColor += lights[i]->I(hitPoint, hitNormal);
+			retColor += lights[i]->intensity(hitPoint, hitNormal);
 		}
 		return retColor;
 	}
@@ -70,12 +70,12 @@ Color Scene::Shading(const Ray &ray)
 	return backgroundColor;
 }
 
-void Scene::Add(Geometry *geometry)
+void Scene::add(Geometry *geometry)
 {
 	geometries.push_back(geometry);
 }
 
-void Scene::Add(Light *light)
+void Scene::add(Light *light)
 {
 	lights.push_back(light);
 }
@@ -85,7 +85,7 @@ void Scene::deleteGeometries()
 	size_t vecSize = geometries.size();
 	for (unsigned int i = 0; i < vecSize; i++)
 	{
-		Memory::SafeDelete(geometries[i]);
+		Memory::safeDelete(geometries[i]);
 	}
 }
 
@@ -94,6 +94,6 @@ void Scene::deleteLights()
 	size_t vecSize = lights.size();
 	for (unsigned int i = 0; i < vecSize; i++)
 	{
-		Memory::SafeDelete(lights[i]);
+		Memory::safeDelete(lights[i]);
 	}
 }

@@ -2,7 +2,7 @@
 
 RPhoton* RPhotonEngine::g_RPhoton = nullptr;
 
-void RPhotonEngine::InitRPEngine(HINSTANCE hinstance, std::wstring title)
+void RPhotonEngine::initRPEngine(HINSTANCE hinstance, std::wstring title)
 {
 	if (g_RPhoton == nullptr)
 	{

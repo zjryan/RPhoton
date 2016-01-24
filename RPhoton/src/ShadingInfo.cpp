@@ -18,9 +18,9 @@ ShadingInfo::~ShadingInfo()
 {
 }
 
-void ShadingInfo::UpdateShadingInfo(const Ray &ray)
+void ShadingInfo::updateShadingInfo(const Ray &ray)
 {
 	hitPoint = Point(ray.o + ray.d * t);
-	hitNormal = hitGeo->GetNormal(ray, t);
-	texCoord = hitGeo->GetTexCoord(ray, t);
+	hitNormal = hitGeo->normal(ray, t);
+	texCoord = hitGeo->texCoord(ray, t);
 }

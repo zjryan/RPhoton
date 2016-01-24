@@ -11,7 +11,7 @@ int WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 	}
 #endif
 
-	RPhotonEngine::InitRPEngine(hInstance, L"RPhoton");
+	RPhotonEngine::initRPEngine(hInstance, L"RPhoton");
 	RPhoton* RPEngine = RPhotonEngine::RPEngine();
 
 	if (!RPEngine->Init())

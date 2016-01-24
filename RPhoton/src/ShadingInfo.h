@@ -22,7 +22,7 @@ public:
 	ShadingInfo();
 	~ShadingInfo();
 
-	void UpdateShadingInfo(const Ray &ray);
+	void updateShadingInfo(const Ray &ray);
 };
 
 #endif

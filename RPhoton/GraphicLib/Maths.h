@@ -14,7 +14,7 @@ const double _invTWO_PI		= 0.1591549430918953358;
 
 namespace Math
 {
-	inline bool FloatEqual(float a, float b)
+	inline bool floatEqual(float a, float b)
 	{
 		return fabs(a - b) < 0.0001;
 	}
@@ -26,22 +26,22 @@ namespace Math
 		b = temp;
 	}
 
-	inline float Radians(float angle)
+	inline float radians(float angle)
 	{
 		return _PI_ON_180 * angle;
 	}
 
-	inline float Angles(float radian)
+	inline float angles(float radian)
 	{
 		return _180_ON_PI * radian;
 	}
 
-	inline float Lerp(float t, float v1, float v2)
+	inline float lerp(float t, float v1, float v2)
 	{
 		return (1.0f - t) * v1 + t * v2;
 	}
 
-	inline float Clamp(float val, float low, float high)
+	inline float clamp(float val, float low, float high)
 	{
 		if (val < low)
 		{
@@ -57,7 +57,7 @@ namespace Math
 		}
 	}
 
-	inline bool Quadratic(float A, float B, float C, float &t0, float &t1)
+	inline bool quadratic(float A, float B, float C, float &t0, float &t1)
 	{
 		float discrim = B * B - 4.0f * A * C;
 		if (discrim < 0.0f)

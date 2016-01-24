@@ -17,7 +17,7 @@ Material::Material(std::wstring texturepath)
 
 Material::~Material()
 {
-	Memory::SafeDelete(texture);
+	Memory::safeDelete(texture);
 }
 
 void Material::SetColor(const Color &c)

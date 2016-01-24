@@ -13,7 +13,7 @@ Texture::Texture(std::wstring filename, FilterType filtertype)
 
 Texture::~Texture()
 {
-	Memory::SafeDeleteArray(colors);
+	Memory::safeDeleteArray(colors);
 }
 
 
@@ -42,7 +42,7 @@ Color Texture::Sample(const TextureCoord &texcoord)
 
 void Texture::Load(std::wstring filename)
 {
-	Memory::SafeDeleteArray(colors);
+	Memory::safeDeleteArray(colors);
 	WinBitmap texture(filename);
 	texWidth = texture.GetWidth();
 	texHeight = texture.GetHeight();

@@ -1,7 +1,7 @@
 #ifndef ZJR_NORMAL_
 #define ZJR_NORMAL_
 
-class Vector;
+class Vector3;
 
 class Normal
 {
@@ -13,7 +13,7 @@ public:
 	Normal();
 	Normal(float x_, float y_, float z_);
 	Normal(const Normal &n);
-	explicit Normal(const Vector &v);
+	explicit Normal(const Vector3 &v);
 	~Normal();
 
 	Normal				operator+(const Normal &n) const;
@@ -23,8 +23,8 @@ public:
 	Normal&				operator+=(const Normal &n);
 	Normal&				operator*=(float f);
 
-	float				Dot(const Vector &v) const;
-	float				AbsDot(const Vector &v) const;
+	float				dot(const Vector3 &v) const;
+	float				absDot(const Vector3 &v) const;
 };
 
 inline Normal Normal::operator+(const Normal &n) const

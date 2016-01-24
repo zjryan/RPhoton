@@ -16,11 +16,11 @@ public:
 	Light(const Light &l);
 	virtual ~Light();
 
-	void				SetColor(const Color& c);
-	void				SetIntensity(float k);
+	void				setColor(const Color& c);
+	void				setIntensity(float k);
 
 	//return the hitPoint light intensity
-	virtual Color		I(const Point& hitPoint, const Normal &hitNormal);
+	virtual Color		intensity(const Point& hitPoint, const Normal &hitNormal);
 };
 
 #endif

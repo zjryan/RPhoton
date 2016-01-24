@@ -9,15 +9,15 @@ Color::Color()
 
 Color::Color(float c)
 {
-	c = Clamp(c, 0.0f, 1.0f);
+	c = clamp(c, 0.0f, 1.0f);
 	r = g = b = c;
 }
 
 Color::Color(float _r, float _g, float _b)
 {
-	r = Clamp(_r, 0.0f, 1.0f);
-	g = Clamp(_g, 0.0f, 1.0f);
-	b = Clamp(_b, 0.0f, 1.0f);
+	r = clamp(_r, 0.0f, 1.0f);
+	g = clamp(_g, 0.0f, 1.0f);
+	b = clamp(_b, 0.0f, 1.0f);
 }
 
 Color::Color(const Color &c)
@@ -51,9 +51,9 @@ Color Color::operator+(const Color &c) const
 	float r_ = r + c.r;
 	float g_ = g + c.g;
 	float b_ = b + c.b;
-	r_ = Clamp(r_, 0.0f, 1.0f);
-	g_ = Clamp(g_, 0.0f, 1.0f);
-	b_ = Clamp(b_, 0.0f, 1.0f);
+	r_ = clamp(r_, 0.0f, 1.0f);
+	g_ = clamp(g_, 0.0f, 1.0f);
+	b_ = clamp(b_, 0.0f, 1.0f);
 	return Color(r_, g_, b_);
 }
 
@@ -84,9 +84,9 @@ Color& Color::operator*=(float f)
 	r *= f;
 	g *= f;
 	b *= f;
-	r = Clamp(r, 0.0f, 1.0f);
-	g = Clamp(g, 0.0f, 1.0f);
-	b = Clamp(b, 0.0f, 1.0f);
+	r = clamp(r, 0.0f, 1.0f);
+	g = clamp(g, 0.0f, 1.0f);
+	b = clamp(b, 0.0f, 1.0f);
 	return *this;
 }
 
@@ -103,9 +103,9 @@ Color& Color::operator+=(const Color &c)
 	r += c.r;
 	g += c.g;
 	b += c.b;
-	r = Clamp(r, 0.0f, 1.0f);
-	g = Clamp(g, 0.0f, 1.0f);
-	b = Clamp(b, 0.0f, 1.0f);
+	r = clamp(r, 0.0f, 1.0f);
+	g = clamp(g, 0.0f, 1.0f);
+	b = clamp(b, 0.0f, 1.0f);
 	return *this;
 }
 

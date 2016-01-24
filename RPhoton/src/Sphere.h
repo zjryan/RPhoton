@@ -12,12 +12,12 @@ public:
 	Sphere(const Sphere &s);
 	~Sphere();
 
-	void				SetRadius(float r);
-	void				SetCenter(float x, float y, float z);
+	void				setRadius(float r);
+	void				setCenter(float x, float y, float z);
 
-	bool				Intersect(const Ray &ray, float &t) const override;
-	Normal				GetNormal(const Ray &ray, float &t) const override;
-	Vector2				GetTexCoord(const Ray &ray, float &t) const override;
+	bool				intersected(const Ray &ray, float &t) const override;
+	Normal				normal(const Ray &ray, float &t) const override;
+	Vector2				texCoord(const Ray &ray, float &t) const override;
 
 private:
 	float				radius;

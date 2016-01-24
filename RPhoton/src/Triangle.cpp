@@ -1,28 +1,11 @@
 #include "Triangle.h"
 #include "../GraphicLib/Ray.h"
 
-#include <iostream>
-using namespace std;
-
-Triangle::Triangle(const Point &a_, const Point &b_, const Point &c_)
+Triangle::Triangle(const Vertex &a_, const Vertex &b_, const Vertex &c_)
 	:	Geometry(),
 		a(a_),
 		b(b_),
 		c(c_)
-{
-	Vector e0 = b - a;
-	Vector e1 = c - a;
-	Vector nor = e0.Cross(e1);
-	nor.Normalize();
-	n = Normal(nor);
-}
-
-Triangle::Triangle(const Point &a_, const Point &b_, const Point &c_, const Normal &n_)
-	:	Geometry(),
-		a(a_),
-		b(b_),
-		c(c_),
-		n(n_)
 {
 }
 
@@ -30,8 +13,7 @@ Triangle::Triangle(const Triangle &t)
 	:	Geometry(t),
 		a(t.a),
 		b(t.b),
-		c(t.c),
-		n(t.n)
+		c(t.c)
 {
 }
 
@@ -39,33 +21,33 @@ Triangle::~Triangle()
 {
 }
 
-float Triangle::Area() const 
+float Triangle::area() const 
 {
-	float E0 = (b - a).Length();
-	float E1 = (c - a).Length();
-	float E2 = (c - b).Length();
+	float E0 = (b.position - a.position).length();
+	float E1 = (c.position - a.position).length();
+	float E2 = (c.position - b.position).length();
 	float p = (E0 + E1 + E2) / 2;
 
 	return sqrtf(p * (p - E0) * (p - E1) * (p - E2));
 }
 
-bool Triangle::Intersect(const Ray &ray, float &t) const
+bool Triangle::intersected(const Ray &ray, float &t) const
 {
-	float A = a.x - b.x;
-	float B = a.y - b.y;
-	float C = a.z - b.z;
+	float A = a.position.x - b.position.x;
+	float B = a.position.y - b.position.y;
+	float C = a.position.z - b.position.z;
 
-	float D = a.x - c.x;
-	float E = a.y - c.y;
-	float F = a.z - c.z;
+	float D = a.position.x - c.position.x;
+	float E = a.position.y - c.position.y;
+	float F = a.position.z - c.position.z;
 
 	float G = ray.d.x;
 	float H = ray.d.y;
 	float I = ray.d.z;
 
-	float J = a.x - ray.o.x;
-	float K = a.y - ray.o.y;
-	float L = a.z - ray.o.z;
+	float J = a.position.x - ray.o.x;
+	float K = a.position.y - ray.o.y;
+	float L = a.position.z - ray.o.z;
 
 	float M = A * (E * I - H * F) + B * (G * F - D * I) + C * (D * H - E * G);
 	float beta = (J * (E * I - H * F) + K * (G * F - D * I) + L * (D * H - E * G)) / M;
@@ -83,8 +65,8 @@ bool Triangle::Intersect(const Ray &ray, float &t) const
 	return false;
 }
 
-Normal Triangle::GetNormal(const Ray &ray, float &t) const
+Normal Triangle::normal(const Ray &ray, float &t) const
 {
-	return n;
+	return Normal();
 }
 

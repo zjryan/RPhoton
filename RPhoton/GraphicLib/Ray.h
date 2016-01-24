@@ -1,18 +1,18 @@
 #ifndef ZJR_RAY_
 #define ZJR_RAY_
 
-#include "./Vector.h"
+#include "./Vector3.h"
 #include "./Point.h"
 
 class Ray
 {
 public:
 	Point				o;
-	Vector				d;
+	Vector3				d;
 	int					depth;
 
 	Ray();
-	Ray(const Point &origin, const Vector &direction, int d = 0);
+	Ray(const Point &origin, const Vector3 &direction, int d = 0);
 	Ray(const Ray &r);
 	~Ray();
 
@@ -27,7 +27,7 @@ inline Ray::Ray()
 {
 }
 
-inline Ray::Ray(const Point &origin, const Vector &direction, int d /*= 0*/)
+inline Ray::Ray(const Point &origin, const Vector3 &direction, int d /*= 0*/)
 	:	o(origin),
 		d(direction),
 		depth(d)

@@ -9,10 +9,10 @@ public:
 	Simulator(HINSTANCE hinstance);
 	virtual ~Simulator() = 0;
 
-	WinViewer*				GetViewer() const;
+	WinViewer*				viewer() const;
 
 protected:
-	bool					InitViewer(std::wstring title);
+	bool					viewerInitialized(std::wstring title);
 
 	WinViewer*				winViewer;
 	HINSTANCE				hInstance;

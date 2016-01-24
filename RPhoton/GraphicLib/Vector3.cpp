@@ -1,29 +1,29 @@
-#include "Vector.h"
+#include "Vector3.h"
 #include "./Point.h"
 #include "./Normal.h"
 
-Vector::Vector()
+Vector3::Vector3()
 	:	x(0.0f),
 		y(0.0f),
 		z(0.0f)
 {
 }
 
-Vector::Vector(float x_, float y_, float z_)
+Vector3::Vector3(float x_, float y_, float z_)
 	:	x(x_),
 		y(y_),
 		z(z_)
 {
 }
 
-Vector::Vector(const Vector &v)
+Vector3::Vector3(const Vector3 &v)
 	:	x(v.x),
 		y(v.y),
 		z(v.z)
 {
 }
 
-Vector::Vector(const Point& p)
+Vector3::Vector3(const Point& p)
 	:	x(p.x),
 		y(p.y),
 		z(p.z)
@@ -31,14 +31,14 @@ Vector::Vector(const Point& p)
 }
 
 
-Vector::Vector(const Normal& n)
+Vector3::Vector3(const Normal& n)
 	:	x(n.x),
 		y(n.y),
 		z(n.z)
 {
 }
 
-Vector::~Vector()
+Vector3::~Vector3()
 {
 }
 

@@ -28,10 +28,10 @@ Cube::~Cube()
 {
 }
 
-Vector2 Cube::GetTexCoord(const Ray &ray, float &t) const
+Vector2 Cube::texCoord(const Ray &ray, float &t) const
 {
 	//assume all the skyboxes are cube
-	Face f = IntersectFace(ray, t);
+	Face f = intersectFace(ray, t);
 	Point hitPoint(ray.o + ray.d * t);
 	//edge length
 	float el = Bh.x - Bl.x;
@@ -85,14 +85,14 @@ Vector2 Cube::GetTexCoord(const Ray &ray, float &t) const
 	return texcoord;
 }
 
-bool Cube::Intersect(const Ray &ray, float &t) const
+bool Cube::intersected(const Ray &ray, float &t) const
 {
 	float tfar	=  INFINITY;
 	float tnear =  -INFINITY;
 
 	for (auto i = 0; i < 3; i++)
 	{
-		if(FloatEqual(ray.d[i], 0.0f))
+		if(floatEqual(ray.d[i], 0.0f))
 		{
 			if (ray.o[i] < Bl[i] || ray.o[i] > Bh[i])
 			{
@@ -130,9 +130,9 @@ bool Cube::Intersect(const Ray &ray, float &t) const
 	return true;
 }
 
-Normal Cube::GetNormal(const Ray &ray, float &t) const
+Normal Cube::normal(const Ray &ray, float &t) const
 {
-	Face f = IntersectFace(ray, t);
+	Face f = intersectFace(ray, t);
 	Normal n;
 	switch(f)
 	{
@@ -161,17 +161,17 @@ Normal Cube::GetNormal(const Ray &ray, float &t) const
 	return n;
 }
 
-Cube::Face Cube::IntersectFace(const Ray &ray, float t) const
+Cube::Face Cube::intersectFace(const Ray &ray, float t) const
 {
 	Point	center((Bl + Bh) / 2);
 	Point	intersect(ray.o + ray.d * t);
-	Vector	distance(Bh - center);
-	Vector	d(intersect - center);
+	Vector3	distance(Bh - center);
+	Vector3	d(intersect - center);
 
 	Face f;
 	for (auto i = 0; i < 3; i++)
 	{
-		if (FloatEqual(d[i], distance[i]))
+		if (floatEqual(d[i], distance[i]))
 		{
 			switch (i)
 			{
@@ -190,7 +190,7 @@ Cube::Face Cube::IntersectFace(const Ray &ray, float t) const
 			break;
 		}
 
-		if (FloatEqual(d[i], -distance[i]))
+		if (floatEqual(d[i], -distance[i]))
 		{
 			switch (i)
 			{
@@ -215,45 +215,45 @@ SkyBox::SkyBox()
 	:	Cube(Point( 10000.0f,  10000.0f,  10000.0f),
 			 Point(-10000.0f, -10000.0f, -10000.0f))
 {
-	InitializeSky();
+	initializeSky();
 }
 
 SkyBox::SkyBox(const Point &p1, const Point &p2)
 	:	Cube(p1, p2)
 {
-	InitializeSky();
+	initializeSky();
 }
 
 SkyBox::~SkyBox()
 {
-	Memory::SafeDelete(px);
-	Memory::SafeDelete(nx);
-	Memory::SafeDelete(py);
-	Memory::SafeDelete(ny);
-	Memory::SafeDelete(pz);
-	Memory::SafeDelete(nz);
+	Memory::safeDelete(px);
+	Memory::safeDelete(nx);
+	Memory::safeDelete(py);
+	Memory::safeDelete(ny);
+	Memory::safeDelete(pz);
+	Memory::safeDelete(nz);
 }
 
-Normal SkyBox::GetNormal(const Ray &ray, float &t) const
+Normal SkyBox::normal(const Ray &ray, float &t) const
 {
-	Normal n = Cube::GetNormal(ray, t);
+	Normal n = Cube::normal(ray, t);
 	return -n;
 }
 
-Color SkyBox::GetSkyColor(const Ray &ray) const
+Color SkyBox::skyColor(const Ray &ray) const
 {
 	Color retColor;
 	float t = INFINITY;
-	Intersect(ray, t);
-	auto texture = GetFaceTexture(ray, t);
-	auto texcoord = GetTexCoord(ray, t);
+	intersected(ray, t);
+	auto texture = faceTexture(ray, t);
+	auto texcoord = texCoord(ray, t);
 	retColor = texture->Sample(texcoord);
 	return retColor;
 }
 
-Texture* SkyBox::GetFaceTexture(const Ray &ray, float t) const
+Texture* SkyBox::faceTexture(const Ray &ray, float t) const
 {
-	Face f = IntersectFace(ray, t);
+	Face f = intersectFace(ray, t);
 	Texture *tex = nullptr;
 	switch(f)
 	{
@@ -285,7 +285,7 @@ Texture* SkyBox::GetFaceTexture(const Ray &ray, float t) const
 	return tex;
 }
 
-void SkyBox::InitializeSky()
+void SkyBox::initializeSky()
 {
 	px = new Texture(L"Texture/SkyBox/+x.bmp", Texture::None);
 	nx = new Texture(L"Texture/SkyBox/-x.bmp", Texture::None);
