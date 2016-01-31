@@ -2,18 +2,28 @@
 #define ZJR_MATHS_
 
 #include <math.h>
-#define max(a, b) ((a > b) ? a : b)
-#define min(a, b) ((a < b) ? a : b)
 
-const double _PI			= 3.1415926535897932384;
-const double _TWO_PI		= 6.2831853071795864769;
+const double PI				= 3.1415926535897932384;
+const double TWO_PI			= 6.2831853071795864769;
+const double INV_PI			= 0.3183098861837906715;
+const double INV_TWO_PI		= 0.1591549430918953358;
 const double _PI_ON_180		= 0.0174532925199432957;
 const double _180_ON_PI		= 57.29577951308232087;
-const double _invPI			= 0.3183098861837906715;
-const double _invTWO_PI		= 0.1591549430918953358;
 
 namespace Math
 {
+	template<typename T>
+	T max(T a, T b)
+	{
+		return a > b ? a : b;
+	}
+
+	template<typename T>
+	T min(T a, T b)
+	{
+		return a < b ? a : b;
+	}
+
 	inline bool floatEqual(float a, float b)
 	{
 		return fabs(a - b) < 0.0001;

@@ -144,6 +144,9 @@
     <ClInclude Include="GraphicLib\Vertex.h">
       <Filter>GraphicLib\inc</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicLib\AABB.h">
+      <Filter>GraphicLib\inc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">

@@ -20,3 +20,14 @@ Geometry::~Geometry()
 {
 	delete material;
 }
+
+Geometry& Geometry::operator=(const Geometry &rhs)
+{
+	if(this == &rhs)
+	{
+		return *this;
+	}
+
+	material = rhs.material;
+	return *this;
+}

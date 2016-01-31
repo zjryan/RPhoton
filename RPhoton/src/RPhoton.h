@@ -13,17 +13,17 @@ public:
 	RPhoton(HINSTANCE hinstance, std::wstring title);
 	~RPhoton();
 
-	bool				Init();
-	int					Run();
-	LRESULT				DrawProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	bool				initialized();
+	int					run();
+	LRESULT				drawProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 private:
-	bool				ImportSysConfig(std::wstring configPath);
-	bool				CreateMainWindow(std::wstring windowName);
-	void				BuildImageBuffer();
-	void				BuildScene();
-	void				RenderScene(Scene* scene);
-	void				PresentImage();
+	bool				systemConfigInitialized(std::wstring configPath);
+	bool				mainWindowCreated(std::wstring windowName);
+	void				buildImageBuffer();
+	void				buildScene();
+	void				renderScene(Scene* scene);
+	void				presentImage();
 
 private:
 	Renderer*			renderer;

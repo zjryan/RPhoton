@@ -1,6 +1,15 @@
 #include "Triangle.h"
 #include "../GraphicLib/Ray.h"
 
+
+Triangle::Triangle()
+	:	Geometry(),
+		a(),
+		b(),
+		c()
+{
+}
+
 Triangle::Triangle(const Vertex &a_, const Vertex &b_, const Vertex &c_)
 	:	Geometry(),
 		a(a_),
@@ -21,7 +30,23 @@ Triangle::~Triangle()
 {
 }
 
-float Triangle::area() const 
+Triangle& Triangle::operator=(const Triangle &rhs)
+{
+	if(this == &rhs)
+	{
+		return *this;
+	}
+
+	Geometry::operator=(rhs);
+
+	a = rhs.a;
+	b = rhs.b;
+	c = rhs.c;
+
+	return *this;
+}
+
+float Triangle::area() const
 {
 	float E0 = (b.position - a.position).length();
 	float E1 = (c.position - a.position).length();
@@ -68,5 +93,10 @@ bool Triangle::intersected(const Ray &ray, float &t) const
 Normal Triangle::normal(const Ray &ray, float &t) const
 {
 	return Normal();
+}
+
+Vector2 Triangle::texCoord(const Ray &ray, float &t) const
+{
+	return Vector2();
 }
 

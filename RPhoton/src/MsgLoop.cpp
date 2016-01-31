@@ -8,7 +8,7 @@ LRESULT CALLBACK MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 	if (RPEgine != nullptr && msg == WM_PAINT)
 	{
-		return RPEgine->DrawProc(hwnd, msg, wParam, lParam);
+		return RPEgine->drawProc(hwnd, msg, wParam, lParam);
 	}
 
 	if (winViewer != nullptr)

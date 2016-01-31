@@ -14,10 +14,10 @@ int WINAPI WinMain( _In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
 	RPhotonEngine::initRPEngine(hInstance, L"RPhoton");
 	RPhoton* RPEngine = RPhotonEngine::RPEngine();
 
-	if (!RPEngine->Init())
+	if (!RPEngine->initialized())
 	{
 		return 1;
 	}
 
-	return RPEngine->Run();
+	return RPEngine->run();
 }

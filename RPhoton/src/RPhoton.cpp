@@ -8,6 +8,7 @@
 #include "Cube.h"
 #include "Utilities.h"
 #include <iostream>
+#include "Mesh.h"
 
 RPhoton::RPhoton(HINSTANCE hinstance, std::wstring title)
 	:	Simulator(hinstance),
@@ -22,44 +23,44 @@ RPhoton::~RPhoton()
 	Memory::safeDelete(renderer);
 }
 
-bool RPhoton::Init()
+bool RPhoton::initialized()
 {
 	// 1. import config file
-	if (!ImportSysConfig(L""))
+	if (!systemConfigInitialized(L""))
 	{
 		MessageBox(NULL, L"Read Configuration File Failed", L"Error", MB_OK);
 		return false;
 	}
 
 	// 2. create window
-	if (!CreateMainWindow(appTitle))
+	if (!mainWindowCreated(appTitle))
 	{
 		MessageBox(NULL, L"Cannot Create Window", L"Error", MB_OK);
 		return false;
 	}
 
 	// 3. build image buffer
-	BuildImageBuffer();
+	buildImageBuffer();
 
 	// 4. build render scene
-	BuildScene();
+	buildScene();
 
 	return true;
 }
 
-int RPhoton::Run()
+int RPhoton::run()
 {
 	// 1. render
-	RenderScene(nullptr);
+	renderScene(nullptr);
 
 	// 2. present
-	PresentImage();
+	presentImage();
 
 	// 3. message loop
 	return winViewer->Run();
 }
 
-bool RPhoton::ImportSysConfig(std::wstring)
+bool RPhoton::systemConfigInitialized(std::wstring)
 {
 	screenWidth = 800;
 	screenHeight = 600;
@@ -68,23 +69,29 @@ bool RPhoton::ImportSysConfig(std::wstring)
 	return true;
 }
 
-bool RPhoton::CreateMainWindow(std::wstring windowName)
+bool RPhoton::mainWindowCreated(std::wstring windowName)
 {
 	return viewerInitialized(windowName);
 }
 
-void RPhoton::BuildImageBuffer()
+void RPhoton::buildImageBuffer()
 {
 	imageBuffer = new COLORREF[bufferWidth * bufferHeight];
 }
 
-void RPhoton::BuildScene()
+void RPhoton::buildScene()
 {
 	// create camera
 	Camera* camera = new Camera();
 
 	// create scene
 	Scene* scene = new Scene();
+
+	Mesh *mesh = new Mesh("Models/skull.txt");
+	std::cout << mesh->vertexSize() << std::endl;
+	auto vb = mesh->vertexBuffer();
+	auto vb0p = vb[0].position;
+	auto vb0n = vb[0].normal;
 
 	// create environment light
 	Light* environmentLight = new Light();
@@ -124,12 +131,12 @@ void RPhoton::BuildScene()
 	renderer = rd;
 }
 
-void RPhoton::RenderScene(Scene* scene)
+void RPhoton::renderScene(Scene* scene)
 {
 	renderer->traceRay(bufferWidth, bufferHeight, screenWidth, screenHeight);
 }
 
-void RPhoton::PresentImage()
+void RPhoton::presentImage()
 {
 	auto renderColors = renderer->colors;
 
@@ -147,7 +154,7 @@ void RPhoton::PresentImage()
 	UpdateWindow(hwnd);
 }
 
-LRESULT RPhoton::DrawProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+LRESULT RPhoton::drawProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	HDC				hdc;
 	PAINTSTRUCT		ps;

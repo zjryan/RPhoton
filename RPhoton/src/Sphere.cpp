@@ -70,5 +70,5 @@ Vector2 Sphere::texCoord(const Ray &ray, float &t) const
 	float theta = acos((p.z - center.z) / radius);
 	float phy = atan2f(p.y - center.y, p.x - center.x);
 
-	return Vector2(phy / _TWO_PI, (_PI - theta) / _PI);
+	return Vector2(phy / TWO_PI, (PI - theta) / PI);
 }

@@ -16,6 +16,8 @@ public:
 	Geometry(const Geometry &geo);
 	virtual ~Geometry() = 0;
 
+	Geometry& operator=(const Geometry &rhs);
+
 	virtual Vector2		texCoord(const Ray &ray, float &t) const = 0;
 	virtual bool		intersected(const Ray &ray, float &t) const = 0;
 	virtual Normal		normal(const Ray &ray, float &t) const = 0;
