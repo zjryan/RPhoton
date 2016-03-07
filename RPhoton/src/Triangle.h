@@ -1,10 +1,11 @@
 #ifndef ZJR_TRIANGLE_
 #define ZJR_TRIANGLE_
 
-#include "Geometry.h"
 #include "../GraphicLib/Vertex.h"
 
-class Triangle : public Geometry
+class Ray;
+
+class Triangle
 {
 public:
 	Triangle();
@@ -15,9 +16,7 @@ public:
 	Triangle& operator=(const Triangle &rhs);
 
 	float				area() const;
-	bool				intersected(const Ray &ray, float &t) const override;
-	Normal				normal(const Ray &ray, float &t) const override;
-	Vector2				texCoord(const Ray &ray, float &t) const override;
+	bool				intersected(const Ray &ray, float &t) const;
 
 private:
 	Vertex				a;

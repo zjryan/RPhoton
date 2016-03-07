@@ -1,6 +1,7 @@
 #include "Texture.h"
 #include "Utilities.h"
 #include "../GraphicLib/Color.h"
+#include <iostream>
 
 
 using namespace WinGDI;
@@ -17,14 +18,14 @@ Texture::~Texture()
 }
 
 
-Color Texture::Sample(const TextureCoord &texcoord)
+Color Texture::sample(const TextureCoord &texcoord)
 {
 	float x = texcoord.x * texWidth;
 	float y = texcoord.y * texHeight;
 	int ix = (static_cast<int>(x) % texWidth + texWidth) % texWidth;
 	int iy = (static_cast<int>(y) % texHeight + texHeight) % texHeight;
 
-	Color retColor(colors[ix + iy * texWidth]);
+	Color retColor(color(ix, iy));
 
 	switch(filterType)
 	{
@@ -38,6 +39,11 @@ Color Texture::Sample(const TextureCoord &texcoord)
 		break;
 	}
 	return retColor;
+}
+
+Color Texture::color(int x, int y)
+{
+	return colors[x + y * texWidth];
 }
 
 void Texture::Load(std::wstring filename)

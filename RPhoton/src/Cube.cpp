@@ -247,7 +247,7 @@ Color SkyBox::skyColor(const Ray &ray) const
 	intersected(ray, t);
 	auto texture = faceTexture(ray, t);
 	auto texcoord = texCoord(ray, t);
-	retColor = texture->Sample(texcoord);
+	retColor = texture->sample(texcoord);
 	return retColor;
 }
 

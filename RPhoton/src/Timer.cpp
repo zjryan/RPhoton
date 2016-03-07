@@ -17,7 +17,7 @@ Timer::Timer()
 	m_secsPerCount = 1.f/frequency;
 }
 
-float Timer::TotalTime() const
+float Timer::totalTime() const
 {
 	//如果是暂停状态，如下图所示：
 	//	开始时刻T0			暂停起始时刻S	当前时刻T
@@ -39,13 +39,13 @@ float Timer::TotalTime() const
 	}
 }
 
-float Timer::DeltaTime() const
+float Timer::deltaTime() const
 {
 	//返回离上次计时中间的时间差
 	return m_deltaTime;
 }
 
-void Timer::Start()
+void Timer::start()
 {
 	//暂停恢复
 	//如果本来非暂停状态，则不操作
@@ -64,7 +64,7 @@ void Timer::Start()
 	}
 }
 
-void Timer::Stop()
+void Timer::stop()
 {
 	if(!m_stopped)
 	{
@@ -75,7 +75,7 @@ void Timer::Stop()
 	}
 }
 
-void Timer::Reset()
+void Timer::reset()
 {
 	//重置定时器，进入工作状态
 	__int64 curr;
@@ -92,7 +92,7 @@ void Timer::Reset()
 	m_stopped = false;
 }
 
-void Timer::Tick()
+void Timer::tick()
 {
 	//每帧调用的计时函数
 	//用于更新定时器状态

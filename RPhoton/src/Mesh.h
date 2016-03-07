@@ -2,7 +2,9 @@
 #define ZJR_MESH_
 
 #include <vector>
+#include "Geometry.h"
 #include "Triangle.h"
+#include "../GraphicLib/AABB.h"
 
 class Mesh : public Geometry
 {
@@ -15,6 +17,7 @@ public:
 	Vector2							texCoord(const Ray &ray, float &t) const override;
 	bool							intersected(const Ray &ray, float &t) const override;
 	Normal							normal(const Ray &ray, float &t) const override;
+	void							transform();
 
 	int								vertexSize() const;
 	int								triangleSize() const;
@@ -23,12 +26,14 @@ public:
 
 private:
 	void							importMesh(std::string meshPath);
+	void							updateBounding(const Point &p);
 
 private:
 	std::vector<Vertex>				vertexbuffer;
 	TriangleList					triangles;
 	int								trianglesNum;
 	int								vertexNum;
+	AABB							aabb;
 };
 
 inline int Mesh::vertexSize() const

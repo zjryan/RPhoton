@@ -3,20 +3,20 @@
 #include <fstream>
 
 WinViewer::WinViewer(HINSTANCE hinstance, std::wstring title)
-	:	hInstance(hinstance),
-		hWnd(nullptr),
-		title(title),
-		width(800),
-		height(600)
+	:	_hInstance(hinstance),
+		_hWnd(nullptr),
+		_title(title),
+		_width(800),
+		_height(600)
 {
 }
 
 WinViewer::WinViewer(HINSTANCE hinstance, int width, int height, std::wstring title)
-	:	hInstance(hinstance),
-		hWnd(nullptr),
-		title(title),
-		width(width),
-		height(height)
+	:	_hInstance(hinstance),
+		_hWnd(nullptr),
+		_title(title),
+		_width(width),
+		_height(height)
 {
 }
 
@@ -24,9 +24,9 @@ WinViewer::~WinViewer()
 {
 }
 
-bool WinViewer::Init()
+bool WinViewer::initialized()
 {
-	if (!InitWindow())
+	if (!windowInitialized())
 	{
 		return false;
 	}
@@ -34,16 +34,9 @@ bool WinViewer::Init()
 	return true;
 }
 
-int WinViewer::Run()
+int WinViewer::run()
 {
 	MSG msg = { 0 };
-
-	//timer.Reset();
-	//UpdateWindow(hWnd);
-
-
-	//timer.Stop();
-	//CalculateRenderingTime();
 
 	while (msg.message != WM_QUIT)
 	{
@@ -57,18 +50,18 @@ int WinViewer::Run()
 	return msg.wParam;
 }
 
-bool WinViewer::InitWindow()
+bool WinViewer::windowInitialized()
 {
 	WNDCLASS wc;
 	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc = MsgProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
-	wc.hInstance = hInstance;
+	wc.hInstance = _hInstance;
 	wc.hIcon = LoadIcon(nullptr, IDI_APPLICATION);
 	wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
 	wc.hbrBackground = static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
-	wc.lpszClassName = title.c_str();
+	wc.lpszClassName = _title.c_str();
 	wc.lpszMenuName = nullptr;
 
 	if (!RegisterClass(&wc))
@@ -79,24 +72,24 @@ bool WinViewer::InitWindow()
 
 	UINT posX, posY;
 
-	posX = (GetSystemMetrics(SM_CXSCREEN) - width) / 2;
-	posY = (GetSystemMetrics(SM_CYSCREEN) - height) / 2;
+	posX = (GetSystemMetrics(SM_CXSCREEN) - _width) / 2;
+	posY = (GetSystemMetrics(SM_CYSCREEN) - _height) / 2;
 
-	hWnd = CreateWindow(title.c_str(), title.c_str(),
+	_hWnd = CreateWindow(_title.c_str(), _title.c_str(),
 		WS_OVERLAPPEDWINDOW,
 		posX, posY,
-		width, height,
-		NULL, NULL, hInstance, NULL);
+		_width, _height,
+		NULL, NULL, _hInstance, NULL);
 
-	ShowWindow(hWnd, SW_SHOW);
+	ShowWindow(_hWnd, SW_SHOW);
 	
 	return true;
 
 }
 
-void WinViewer::CalculateRenderingTime()
+void WinViewer::calculateRenderingTime()
 {
-	float elapsedTime = timer.TotalTime();
+	float elapsedTime = _timer.totalTime();
 
 	std::wostringstream text;
 	text.precision(5);
@@ -104,11 +97,11 @@ void WinViewer::CalculateRenderingTime()
 		<< elapsedTime
 		<< L" s";
 
-	std::wstring newtitle = title + text.str();
-	SetWindowText(hWnd, newtitle.c_str());
+	std::wstring newtitle = _title + text.str();
+	SetWindowText(_hWnd, newtitle.c_str());
 }
 
-LRESULT WinViewer::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+LRESULT WinViewer::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{

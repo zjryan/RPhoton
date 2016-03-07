@@ -11,9 +11,9 @@ public:
 	Material(std::wstring texturepath);
 	~Material();
 
-	void				SetColor(const Color &c);
-	void				SetColor(float r, float g, float b);
-	Color				SurfaceColor(const Vector2 &texCoord);
+	void				setColor(const Color &c);
+	void				setColor(float r, float g, float b);
+	Color				surfaceColor(const Vector2 &texCoord);
 
 	Color				color;
 	Texture*			texture;

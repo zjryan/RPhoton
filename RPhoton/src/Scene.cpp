@@ -58,7 +58,7 @@ Color Scene::Shaded(const Ray &ray)
 		auto TexCoord = interFinal.texCoord;
 
 		auto lightSize = lights.size();
-		auto retColor = interGeo->material->SurfaceColor(TexCoord) * environmentLight->intensity(hitPoint, hitNormal);
+		auto retColor = interGeo->material->surfaceColor(TexCoord) * environmentLight->intensity(hitPoint, hitNormal);
 		
 		for (int i = 0; i < lightSize; i++)
 		{

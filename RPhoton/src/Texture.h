@@ -20,7 +20,10 @@ public:
 	Texture(std::wstring filename, FilterType filtertype = None);
 	~Texture();
 
-	Color				Sample(const TextureCoord &texcoord);
+	Color				sample(const TextureCoord &texcoord);
+
+private:
+	Color				color(int x, int y);
 
 private:
 	Color*				colors;

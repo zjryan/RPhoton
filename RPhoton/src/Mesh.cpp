@@ -9,7 +9,8 @@ Mesh::Mesh(string meshPath)
 		vertexbuffer(),
 		triangles(),
 		vertexNum(0),
-		trianglesNum(0)
+		trianglesNum(0),
+		aabb()
 {
 	importMesh(meshPath);
 }
@@ -27,12 +28,37 @@ Vector2 Mesh::texCoord(const Ray &ray, float &t) const
 
 bool Mesh::intersected(const Ray &ray, float &t) const
 {
+	if(!aabb.intersected(ray))
+	{
+		return false;
+	}
+
+	float tmin = INFINITY;
+	for(auto triangle : triangles)
+	{
+		triangle.intersected(ray, tmin);
+	}
+
+	if(tmin < t)
+	{
+		t = tmin;
+	}
+
 	return true;
+	
 }
 
 Normal Mesh::normal(const Ray &ray, float &t) const
 {
 	return Normal();
+}
+
+void Mesh::transform()
+{
+	for (int i = 0; i < vertexNum; i++)
+	{
+		vertexbuffer[i].position * world;
+	}
 }
 
 void Mesh::importMesh(string meshPath)
@@ -52,6 +78,8 @@ void Mesh::importMesh(string meshPath)
 				 >> vertexbuffer[i].position.y
 				 >> vertexbuffer[i].position.z;
 
+		updateBounding(vertexbuffer[i].position);
+
 		MeshFile >> vertexbuffer[i].normal.x
 				 >> vertexbuffer[i].normal.y
 				 >> vertexbuffer[i].normal.z;
@@ -69,4 +97,9 @@ void Mesh::importMesh(string meshPath)
 
 	MeshFile.close();
 }
- 
+
+
+void Mesh::updateBounding(const Point &p)
+{
+	aabb.revise(p);
+}

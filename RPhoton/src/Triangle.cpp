@@ -3,24 +3,21 @@
 
 
 Triangle::Triangle()
-	:	Geometry(),
-		a(),
+	:	a(),
 		b(),
 		c()
 {
 }
 
 Triangle::Triangle(const Vertex &a_, const Vertex &b_, const Vertex &c_)
-	:	Geometry(),
-		a(a_),
+	:	a(a_),
 		b(b_),
 		c(c_)
 {
 }
 
 Triangle::Triangle(const Triangle &t)
-	:	Geometry(t),
-		a(t.a),
+	:	a(t.a),
 		b(t.b),
 		c(t.c)
 {
@@ -36,8 +33,6 @@ Triangle& Triangle::operator=(const Triangle &rhs)
 	{
 		return *this;
 	}
-
-	Geometry::operator=(rhs);
 
 	a = rhs.a;
 	b = rhs.b;
@@ -88,15 +83,5 @@ bool Triangle::intersected(const Ray &ray, float &t) const
 		return true;
 	}
 	return false;
-}
-
-Normal Triangle::normal(const Ray &ray, float &t) const
-{
-	return Normal();
-}
-
-Vector2 Triangle::texCoord(const Ray &ray, float &t) const
-{
-	return Vector2();
 }
 

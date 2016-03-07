@@ -1,6 +1,9 @@
 #ifndef ZJR_MATRIX_
 #define ZJR_MATRIX_
 
+#include "Maths.h"
+#include "Vector3.h"
+
 struct Matrix4x4
 {
 	float				m[4][4];
@@ -8,9 +11,9 @@ struct Matrix4x4
 	Matrix4x4();
 	Matrix4x4(float mat[4][4]);
 	Matrix4x4(float t00, float t01, float t02, float t03,
-				float t10, float t11, float t12, float t13,
-				float t20, float t21, float t22, float t23,
-				float t30, float t31, float t32, float t33);
+			  float t10, float t11, float t12, float t13,
+			  float t20, float t21, float t22, float t23,
+			  float t30, float t31, float t32, float t33);
 
 	Matrix4x4			transpose() const;
 	Matrix4x4			inverse() const;
@@ -19,6 +22,8 @@ struct Matrix4x4
 
 	bool				operator==(const Matrix4x4 &m) const;
 	bool				operator!=(const Matrix4x4 &m) const;
+
+	friend Vector3		operator*(const Vector3 &v, const Matrix4x4 &m);
 };
 
 inline Matrix4x4::Matrix4x4()
@@ -64,9 +69,9 @@ inline Matrix4x4::Matrix4x4(float t00, float t01, float t02, float t03,
 inline Matrix4x4 Matrix4x4::transpose() const
 {
 	return Matrix4x4(m[0][0], m[1][0], m[2][0], m[3][0],
-						m[0][1], m[1][1], m[2][1], m[3][1],
-						m[0][2], m[1][2], m[2][2], m[3][2],
-						m[0][3], m[1][3], m[2][3], m[3][3]);
+					 m[0][1], m[1][1], m[2][1], m[3][1],
+					 m[0][2], m[1][2], m[2][2], m[3][2],
+					 m[0][3], m[1][3], m[2][3], m[3][3]);
 }
 
 
@@ -150,4 +155,60 @@ inline bool Matrix4x4::operator!=(const Matrix4x4 &m) const
 	return !operator==(m);
 }
 
+__forceinline Vector3 operator*(const Vector3 &v, const Matrix4x4 &m)
+{
+	return Vector3();
+}
+
+namespace Transform
+{
+	__forceinline Matrix4x4 MatrixTranslate(float x, float y, float z)
+	{
+		return Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
+						 0.0f, 1.0f, 0.0f, 0.0f,
+						 0.0f, 0.0f, 1.0f, 0.0f,
+						    x,	  y,    z, 1.0f);
+	}
+
+	__forceinline Matrix4x4 MatrixScale(float x, float y, float z)
+	{
+		return Matrix4x4(   x, 0.0f, 0.0f, 0.0f,
+						 0.0f,    y, 0.0f, 0.0f,
+						 0.0f, 0.0f,    z, 0.0f,
+						 0.0f, 0.0f, 0.0f, 1.0f);
+	}
+
+	__forceinline Matrix4x4 MatrixRotateX(float angle)
+	{
+		float radian = Math::radians(angle);
+		float s = sinf(radian);
+		float c = cosf(radian);
+		return Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
+						 0.0f,    c,    s, 0.0f,
+						 0.0f,   -s,    c, 0.0f,
+						 0.0f, 0.0f, 0.0f, 1.0f);
+	}
+
+	__forceinline Matrix4x4 MatrixRotateY(float angle)
+	{
+		float radian = Math::radians(angle);
+		float s = sinf(radian);
+		float c = cosf(radian);
+		return Matrix4x4(   c, 0.0f,   -s, 0.0f,
+						 0.0f, 1.0f, 0.0f, 0.0f,
+						    s, 0.0f,    c, 0.0f,
+						 0.0f, 0.0f, 0.0f, 1.0f);
+	}
+
+	__forceinline Matrix4x4 MatrixRotateZ(float angle)
+	{
+		float radian = Math::radians(angle);
+		float s = sinf(radian);
+		float c = cosf(radian);
+		return Matrix4x4(   c,    s, 0.0f, 0.0f,
+						   -s,    c, 0.0f, 0.0f,
+						 0.0f, 0.0f, 1.0f, 0.0f,
+						 0.0f, 0.0f, 0.0f, 1.0f);
+	}
+}
 #endif

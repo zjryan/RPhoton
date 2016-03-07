@@ -13,7 +13,6 @@
 RPhoton::RPhoton(HINSTANCE hinstance, std::wstring title)
 	:	Simulator(hinstance),
 		renderer(nullptr),
-		parser(nullptr),
 		appTitle(title)
 {
 }
@@ -50,14 +49,21 @@ bool RPhoton::initialized()
 
 int RPhoton::run()
 {
-	// 1. render
+	// 1. reset timer
+	resetTimer();
+
+	// 2. render
 	renderScene(nullptr);
 
-	// 2. present
+	// 3. calculate rendering time
+	stopTimer();
+	calculateRenderingTime();
+
+	// 4. present
 	presentImage();
 
-	// 3. message loop
-	return winViewer->Run();
+	// 5. message loop
+	return winViewer->run();
 }
 
 bool RPhoton::systemConfigInitialized(std::wstring)
@@ -87,12 +93,6 @@ void RPhoton::buildScene()
 	// create scene
 	Scene* scene = new Scene();
 
-	Mesh *mesh = new Mesh("Models/skull.txt");
-	std::cout << mesh->vertexSize() << std::endl;
-	auto vb = mesh->vertexBuffer();
-	auto vb0p = vb[0].position;
-	auto vb0n = vb[0].normal;
-
 	// create environment light
 	Light* environmentLight = new Light();
 	environmentLight->setIntensity(0.3f);
@@ -111,13 +111,17 @@ void RPhoton::buildScene()
 	Sphere* s2 = new Sphere();
 	s2->setCenter(550.0f, 300.0f, -200.0f);
 	s2->setRadius(150.0f);
-	s2->material->SetColor(Colors::Red);
+	s2->material->setColor(Colors::Red);
 	scene->add(s2);
 
 	Point p1(-550.0f, 300.0f, -200.0f);
 	Cube *c1 = new Cube(p1, 250.0f);
-	c1->material->SetColor(Colors::Green);
+	c1->material->setColor(Colors::Green);
 	scene->add(c1);
+
+/*
+	Mesh *m = new Mesh("Models/car.txt");
+	scene->add(m);*/
 
 	// lights
 	PointLight* l1 = new PointLight();
@@ -150,7 +154,7 @@ void RPhoton::presentImage()
 		}
 	}
 
-	auto hwnd = winViewer->GetWindowHandle();
+	auto hwnd = winViewer->windowHandle();
 	UpdateWindow(hwnd);
 }
 

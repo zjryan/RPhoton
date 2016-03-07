@@ -20,22 +20,22 @@ Material::~Material()
 	Memory::safeDelete(texture);
 }
 
-void Material::SetColor(const Color &c)
+void Material::setColor(const Color &c)
 {
 	color = c;
 }
 
-void Material::SetColor(float r, float g, float b)
+void Material::setColor(float r, float g, float b)
 {
 	color = Color(r, g, b);
 }
 
-Color Material::SurfaceColor(const Vector2 &texCoord)
+Color Material::surfaceColor(const Vector2 &texCoord)
 {
 	Color retColor;
 	if(texture != nullptr)
 	{
-		retColor = texture->Sample(texCoord);
+		retColor = texture->sample(texCoord);
 	}
 	else
 	{

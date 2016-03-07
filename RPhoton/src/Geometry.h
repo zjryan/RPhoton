@@ -2,6 +2,7 @@
 #define ZJR_CEOMETRY_
 
 #include "Material.h"
+#include "../GraphicLib/Matrix4x4.h"
 
 class Ray;
 class Normal;
@@ -10,6 +11,7 @@ class Geometry
 {
 public:
 	Material*			material;
+	Matrix4x4			world;
 
 	Geometry();
 	Geometry(Material *material_);

@@ -13,34 +13,41 @@ public:
 	WinViewer(const WinViewer &wv) = delete;
 	~WinViewer();
 
-	HINSTANCE				getInstance() const;
-	HWND					GetWindowHandle() const;
-	bool					Init();
-	int						Run();
-	LRESULT					WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	bool					initialized();
+	int						run();
+	LRESULT					wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+	HINSTANCE				instance() const;
+	HWND					windowHandle() const;
+	Timer&					timer();
+	void					calculateRenderingTime();
 
 private:
-	bool					InitWindow();
-	void					CalculateRenderingTime();
+	bool					windowInitialized();
 
 private:
 
-	HINSTANCE				hInstance;
-	HWND					hWnd;
-	std::wstring			title;
-	UINT					width;
-	UINT					height;
-	Timer					timer;
+	HINSTANCE				_hInstance;
+	HWND					_hWnd;
+	std::wstring			_title;
+	UINT					_width;
+	UINT					_height;
+	Timer					_timer;
 };
 
-inline HINSTANCE WinViewer::getInstance() const
+inline HINSTANCE WinViewer::instance() const
 {
-	return hInstance;
+	return _hInstance;
 }
 
-inline HWND WinViewer::GetWindowHandle() const
+inline HWND WinViewer::windowHandle() const
 {
-	return hWnd;
+	return _hWnd;
+}
+
+inline Timer& WinViewer::timer()
+{
+	return _timer;
 }
 
 extern LRESULT CALLBACK MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);

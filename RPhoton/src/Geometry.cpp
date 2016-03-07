@@ -1,7 +1,8 @@
 #include "Geometry.h"
 
 Geometry::Geometry()
-	:	material()
+	:	material(),
+		world()
 {
 	material = new Material();
 }

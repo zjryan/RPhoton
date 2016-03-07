@@ -4,7 +4,6 @@
 #include "Simulator.h"
 
 class Renderer;
-class Parser;
 class Scene;
 
 class RPhoton : public Simulator
@@ -27,7 +26,6 @@ private:
 
 private:
 	Renderer*			renderer;
-	Parser*				parser;
 
 	//image buffer
 	int					bufferWidth;

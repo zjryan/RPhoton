@@ -6,13 +6,13 @@ class Timer
 public:
 	Timer();
 
-	float TotalTime() const;	//返回定时器从开始计时到现在的总时间（不包含暂停时间），单位：秒
-	float DeltaTime() const;	//返回本次计时与上次计时之间的时间差，单位：秒
+	float totalTime() const;	//返回定时器从开始计时到现在的总时间（不包含暂停时间），单位：秒
+	float deltaTime() const;	//返回本次计时与上次计时之间的时间差，单位：秒
 
-	void Start();				//暂停后恢复计时
-	void Stop();				//暂停
-	void Reset();				//重置，开始计时，定时器开始工作时调用
-	void Tick();				//计时一次，每一帧调用一次
+	void start();				//暂停后恢复计时
+	void stop();				//暂停
+	void reset();				//重置，开始计时，定时器开始工作时调用
+	void tick();				//计时一次，每一帧调用一次
 
 private:
 	float	m_secsPerCount;		//系统有关，两个系统计数器之间的时间差值，单位：秒

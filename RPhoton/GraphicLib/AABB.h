@@ -1,17 +1,18 @@
-#ifndef ZJR_BBOX_
-#define ZJR_BBOX_
+#ifndef ZJR_AABB_
+#define ZJR_AABB_
 
 #include <math.h>
 #include "./Maths.h"
 #include "./Point.h"
+#include "./Ray.h"
 
 using namespace Math;
 
 class AABB
 {
 public:
-	Point				pMin;
-	Point				pMax;
+	Point				minPoint;
+	Point				maxPoint;
 
 	AABB();
 	AABB(const Point &p);
@@ -21,6 +22,7 @@ public:
 
 	bool				overlaps(const AABB &b) const;
 	bool				inside(const Point &pt) const;
+	bool				intersected(const Ray &ray) const;
 	float 				surfaceArea() const;
 	float				volume() const;
 	int					maximumExtent() const;
@@ -28,30 +30,30 @@ public:
 	Vector3				offset(const Point &p) const;
 	void				expand(float delta);
 
-	static AABB			Union(const AABB &b, const Point &p);
+	void				revise(const Point &p);
 };
 
 inline AABB::AABB()
-	:	pMin(-INFINITY, -INFINITY, -INFINITY),
-		pMax( INFINITY,  INFINITY,  INFINITY)
+	:	minPoint( INFINITY,  INFINITY,  INFINITY),
+		maxPoint(-INFINITY, -INFINITY, -INFINITY)
 {
 }
 
 inline AABB::AABB(const Point &p)
-	:	pMin(p),
-		pMax(p)
+	:	minPoint(p),
+		maxPoint(p)
 {
 }
 
 inline AABB::AABB(const Point &p1, const Point &p2)
 {
-	pMin = Point(min(p1.x, p2.x), min(p1.y, p2.y), min(p1.z, p2.z));
-	pMax = Point(max(p1.x, p2.x), max(p1.y, p2.y), max(p1.z, p2.z));
+	minPoint = Point(min(p1.x, p2.x), min(p1.y, p2.y), min(p1.z, p2.z));
+	maxPoint = Point(max(p1.x, p2.x), max(p1.y, p2.y), max(p1.z, p2.z));
 }
 
 inline AABB::AABB(const AABB &b)
-	:	pMin(b.pMin),
-		pMax(b.pMax)
+	:	minPoint(b.minPoint),
+		maxPoint(b.maxPoint)
 {
 }
 
@@ -61,34 +63,75 @@ inline AABB::~AABB()
 
 inline bool AABB::overlaps(const AABB &b) const
 {
-	bool x = pMax.x >= b.pMin.x && pMin.x <= b.pMax.x;
-	bool y = pMax.y >= b.pMin.y && pMin.y <= b.pMax.y;
-	bool z = pMax.z >= b.pMin.z && pMin.z <= b.pMax.z;
+	bool x = maxPoint.x >= b.minPoint.x && minPoint.x <= b.maxPoint.x;
+	bool y = maxPoint.y >= b.minPoint.y && minPoint.y <= b.maxPoint.y;
+	bool z = maxPoint.z >= b.minPoint.z && minPoint.z <= b.maxPoint.z;
 	return x && y && z;
 }
 
 inline bool AABB::inside(const Point &pt) const
 {
-	return  pt.x >= pMin.x && pt.x <= pMax.x &&
-			pt.y >= pMin.y && pt.y <= pMax.y &&
-			pt.z >= pMin.z && pt.z <= pMax.z;
+	return  pt.x >= minPoint.x && pt.x <= maxPoint.x &&
+			pt.y >= minPoint.y && pt.y <= maxPoint.y &&
+			pt.z >= minPoint.z && pt.z <= maxPoint.z;
+}
+
+inline bool AABB::intersected(const Ray &ray) const
+{
+	float tfar = INFINITY;
+	float tnear = -INFINITY;
+
+	for (auto i = 0; i < 3; i++)
+	{
+		if (floatEqual(ray.d[i], 0.0f))
+		{
+			if (ray.o[i] < minPoint[i] || ray.o[i] > maxPoint[i])
+			{
+				return false;
+			}
+		}
+		else
+		{
+			float t1 = (minPoint[i] - ray.o[i]) / ray.d[i];
+			float t2 = (maxPoint[i] - ray.o[i]) / ray.d[i];
+
+			if (t1 > t2)
+			{
+				swap(t1, t2);
+			}
+			if (t1 > tnear)
+			{
+				tnear = t1;
+			}
+			if (t2 < tfar)
+			{
+				tfar = t2;
+			}
+			if (tnear > tfar)
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
 }
 
 inline float AABB::surfaceArea() const
 {
-	Vector3 d = pMax - pMin;
+	Vector3 d = maxPoint - minPoint;
 	return 2.0f * (d.x * d.y + d.x * d.z + d.y * d.z);
 }
 
 inline float AABB::volume() const
 {
-	Vector3 d = pMax - pMin;
+	Vector3 d = maxPoint - minPoint;
 	return d.x * d.y * d.z;
 }
 
 inline int AABB::maximumExtent() const
 {
-	Vector3 diag = pMax - pMin;
+	Vector3 diag = maxPoint - minPoint;
 	if (diag.x > diag.y && diag.x > diag.z)
 	{
 		return 0;
@@ -105,34 +148,59 @@ inline int AABB::maximumExtent() const
 
 inline Point AABB::lerp(float tx, float ty, float tz) const
 {
-	return Point(Math::lerp(tx, pMin.x, pMax.x),
-				 Math::lerp(ty, pMin.y, pMax.y),
-				 Math::lerp(tz, pMin.z, pMax.z));
+	return Point(Math::lerp(tx, minPoint.x, maxPoint.x),
+				 Math::lerp(ty, minPoint.y, maxPoint.y),
+				 Math::lerp(tz, minPoint.z, maxPoint.z));
 }
 
 inline Vector3 AABB::offset(const Point &p) const
 {
-	return Vector3((p.x - pMin.x) / (pMax.x - pMin.x),
-				   (p.y - pMin.y) / (pMax.y - pMin.y),
-				   (p.z - pMin.z) / (pMax.z - pMin.z));
+	return Vector3((p.x - minPoint.x) / (maxPoint.x - minPoint.x),
+				   (p.y - minPoint.y) / (maxPoint.y - minPoint.y),
+				   (p.z - minPoint.z) / (maxPoint.z - minPoint.z));
 }
 
 inline void AABB::expand(float delta)
 {
-	pMin -= Point(delta, delta, delta);
-	pMin += Point(delta, delta, delta);
+	minPoint -= Point(delta, delta, delta);
+	minPoint += Point(delta, delta, delta);
 }
 
-inline AABB AABB::Union(const AABB &b, const Point &p)
+inline void AABB::revise(const Point &p)
 {
-	AABB ret(b);
-	ret.pMin.x = min(b.pMin.x, p.x);
-	ret.pMin.y = min(b.pMin.y, p.y);
-	ret.pMin.z = min(b.pMin.z, p.z);
-	ret.pMax.x = max(b.pMax.x, p.x);
-	ret.pMax.y = max(b.pMax.y, p.y);
-	ret.pMax.z = max(b.pMax.z, p.z);
-	return ret;
+	int x = p.x;
+	int y = p.y;
+	int z = p.z;
+
+	if (x < minPoint.x)
+	{
+		minPoint.x = x;
+	}
+
+	if (x > maxPoint.x)
+	{
+		maxPoint.x = x;
+	}
+
+	if (y < minPoint.y)
+	{
+		minPoint.y = y;
+	}
+
+	if (y > maxPoint.y)
+	{
+		maxPoint.y = y;
+	}
+
+	if (z < minPoint.z)
+	{
+		minPoint.z = z;
+	}
+
+	if (z > maxPoint.z)
+	{
+		maxPoint.z = z;
+	}
 }
 
 #endif

@@ -10,6 +10,11 @@ public:
 	virtual ~Simulator() = 0;
 
 	WinViewer*				viewer() const;
+	Timer&					timer() const;
+
+	void					resetTimer();
+	void					stopTimer();
+	void					calculateRenderingTime();
 
 protected:
 	bool					viewerInitialized(std::wstring title);
